@@ -14,11 +14,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Alumnos")
-public class Alumno {
+@Table(name = "Clientes")
+public class Cliente {
 
 	@Id // Primary Key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;	
 	
 	@Column(name = "Nombre")
@@ -26,28 +26,27 @@ public class Alumno {
 	
 	private String apellido;
 
-	@Column(unique = true, nullable = false) // Va a ser Unico y No Nulo
+	@Column(unique = true, nullable = false) 
 	private int dni;
 	@Column(unique = true, nullable = false)
 	private String legajo;
 
-	@ManyToMany(mappedBy = "alumnos", fetch = FetchType.EAGER)
-	private List<Curso> cursos = new ArrayList<>();
+	@ManyToMany(mappedBy = "clientes", fetch = FetchType.EAGER)
+	private List<Venta> ventas = new ArrayList<>();
 
 	private LocalDateTime createdAt;
 
-	public Alumno() {
+	public Cliente() {
 		super();
 	}
 	
-	public Alumno(String nombre, String apellido, int dni, String legajo) {
+	public Cliente(String nombre, String apellido, int dni) {
 		this();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
-		this.legajo = legajo;
-	}
 
+	}
 
 
 	public Long getId() {
@@ -82,20 +81,13 @@ public class Alumno {
 		this.dni = dni;
 	}
 
-	public String getLegajo() {
-		return legajo;
+
+	public List<Venta> getVenta() {
+		return ventas;
 	}
 
-	public void setLegajo(String legajo) {
-		this.legajo = legajo;
-	}
-
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
+	public void setCursos(List<Venta> ventas) {
+		this.ventas = ventas;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -108,8 +100,7 @@ public class Alumno {
 
 	@Override
 	public String toString() {
-		return "Alumno [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", legajo="
-				+ legajo + ", cursos=" + cursos + ", createdAt=" + createdAt + "]";
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni  + ", ventas=" + ventas + ", createdAt=" + createdAt + "]";
 	}
 
 }
